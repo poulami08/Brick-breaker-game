@@ -1,6 +1,6 @@
 import javax.swing.JPanel;
 import java.awt.event.KeyListener;
-import java.util.Timer;
+import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -10,7 +10,7 @@ public class gameplay extends JPanel implements KeyListener , ActionListener{
     private boolean play = false;
     private int score = 0;
     private int totalbricks = 21;
-    private Timer time;
+    private Timer timer;
     private int delay = 8;
     private int playerX = 310;
     private int ballposX = 120;
@@ -22,8 +22,8 @@ public class gameplay extends JPanel implements KeyListener , ActionListener{
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
-       // timer = new Timer(delay, this);
-       // timer.start();
+        timer=new Timer(delay,this);
+		timer.start();
 
     }
 
@@ -46,6 +46,8 @@ public class gameplay extends JPanel implements KeyListener , ActionListener{
 		g.setColor(Color.yellow);
 		g.fillOval(ballposX, ballposY, 20, 20);
 
+        g.dispose();
+
     }
     
 
@@ -53,8 +55,28 @@ public class gameplay extends JPanel implements KeyListener , ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        
+        timer.start();
+        if(play){
+            ballposX += ballXdir;
+			ballposY += ballYdir;
+			
+			if(ballposX < 0)
+			{
+				ballXdir = -ballXdir;
+			}
+			if(ballposY < 0)
+			{
+				ballYdir = -ballYdir;
+			}
+			if(ballposX > 670)
+			{
+				ballXdir = -ballXdir;
+			}		
+			
+
+        }
+            
+        repaint();
     }
 
     @Override
